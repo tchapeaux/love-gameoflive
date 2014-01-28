@@ -13,7 +13,7 @@ Installation
 Screenshot
 ----------
 
-Yes this is unattractive
+(Yes this is ugly)
 
 ![screenshot_1](https://github.com/tchapeaux/love-gameoflive/raw/master/screenshots/001.png "Screenshot 1")
 
