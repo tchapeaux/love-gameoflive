@@ -31,5 +31,6 @@ class Game
 
     mousereleased: (x, y, button) =>
         if button == "l"
-            i, j = @view\translateCoord(x, y)
-            @grid\toggleLife(i, j)
+            if not @grid.running
+                i, j = @view\translateCoord(x, y)
+                @grid\toggleLife(i, j)
