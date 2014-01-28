@@ -108,7 +108,7 @@ class Grid
                             copyGrid\set_alive i2, j2
 
 
-        @cells = newGrid.cells
+        @cells = copyGrid.cells
 
 
     placePattern: (pattern, i, j) =>
