@@ -23,19 +23,19 @@ class Grid
         assert j ~= nil and math.floor(j) == j
         assert @isInGrid(i, j)
 
-    isAlive: (i, j) =>
+    is_alive: (i, j) =>
         @checkCoordinates i, j
         @cells[i] and @cells[i][j]
 
-    isDead: (i, j) =>
+    is_dead: (i, j) =>
         @checkCoordinates i, j
         (not @cells[i]) or (not @cells[i][j])
 
     toggleLife: (i, j) =>
         @checkCoordinates i, j
-        if @isAlive i, j
+        if @is_alive i, j
             @set_dead i, j
-        elseif @isDead i, j
+        elseif @is_dead i, j
             @set_alive i, j
         else
             error("Invalid state for cell #{i} #{j}")
@@ -85,12 +85,12 @@ class Grid
         cnt = 0
         for {coordX, coordY} in *@neighbors i, j
             @checkCoordinates coordX, coordY
-            if @isAlive coordX, coordY then cnt += 1
+            if @is_alive coordX, coordY then cnt += 1
         cnt
 
     surviveNextStep: (i, j) =>
         aliveCnt = @aliveNeighborCnt i, j
-        aliveCnt == 3 or (aliveCnt == 2 and @isAlive i, j)
+        aliveCnt == 3 or (aliveCnt == 2 and @is_alive i, j)
 
     actualize: =>
     -- advance one step in the simulations, updating @cells
@@ -103,8 +103,8 @@ class Grid
                     copyGrid\set_alive i, j
                 -- check if one of its dead neighbors should be awakened
                 for {i2, j2} in *@neighbors(i, j)
-                    if @isDead i2, j2
-                        if copyGrid\isDead(i2, j2) and @surviveNextStep(i2, j2)
+                    if @is_dead i2, j2
+                        if copyGrid\is_dead(i2, j2) and @surviveNextStep(i2, j2)
                             copyGrid\set_alive i2, j2
 
 

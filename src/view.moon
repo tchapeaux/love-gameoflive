@@ -92,7 +92,7 @@ class View
         @grid\checkCoordinates i, j
         cell_x = (i - 1 + grid_offX * @grid.size) * @cellSize!
         cell_y = (j - 1 + grid_offY * @grid.size) * @cellSize!
-        if @grid\isAlive i, j
+        if @grid\is_alive i, j
             love.graphics.setColor(@aliveColor)
             love.graphics.rectangle "fill",
                 cell_x, cell_y,
