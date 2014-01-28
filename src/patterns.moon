@@ -129,4 +129,10 @@ export patterns = {
     aircraftcarrier: Pattern "Aircraft Carrier",
         Pattern.gridFromCellsFile "res/patterns/aircraftcarrier.cells"
 
+    -- my discoveries
+    bomb: Pattern "Bomb", {
+        {0, 0, 1, 0, 0, 0}
+        {0, 0, 0, 1, 0, 0}
+        {1, 1, 0, 0, 1, 1}
+    }
 }
