@@ -4,6 +4,7 @@ export game
 
 love.load = ->
     require("game")
+    require("debagel")
     game = Game!
 
 love.draw = ->
