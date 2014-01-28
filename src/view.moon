@@ -4,16 +4,18 @@ helper = require("helper")
 
 class View
     new: (@grid, @width, @height) =>
-        @cellBaseSize = 10
+        @cellBaseSize = 20
         @offsetX = 0
         @offsetY = 0
         @offset_speed = 100
         @scale = 1  -- final cell size will be @cellBaseSize * @scale pixels
+        @scaleMax = 10
+        @scaleMin = 0.5
         @aliveColor = {65, 105, 225}
-        @deadColor = {255, 255, 255}
+        @deadColor = {154, 205, 50}
         @pauseColor = {100, 100, 100}
         @gridColor = {0, 0, 0}
-        @gridWidth = 2
+        @gridWidth = 1
 
     cellSize: =>
         @cellBaseSize * @scale
@@ -24,10 +26,10 @@ class View
                 @scale += 0.1
             when "down"
                 @scale -= 0.1
+        @scale = math.min(@scale, @scaleMax)
+        @scale = math.max(@scale, @scaleMin)
 
     update: (dt) =>
-        debagel\monitor "offsetX", @offsetX
-        debagel\monitor "offsetY", @offsetY
         if love.keyboard.isDown "right"
             @offsetX -= @offset_speed * dt
         if love.keyboard.isDown "left"
@@ -57,8 +59,6 @@ class View
         top_left_x, top_left_y = @translateCoord 0, 0
         numCol = @width / @cellSize! + 1
         numRow = @height / @cellSize! + 1
-        debagel\monitor "top_left_x", top_left_x
-        debagel\monitor "top_left_y", top_left_y
 
         drawnCellCnt = 0
         for i = top_left_x, top_left_x + numCol
@@ -67,11 +67,8 @@ class View
                 cell_j = helper.modulo_lua(j, @grid.size)
                 cell_grid_offset_x = math.floor((i - 1) / @grid.size)
                 cell_grid_offset_y = math.floor((j - 1) / @grid.size)
-                if i == top_left_x and j == top_left_y
-                    debagel\monitor "grid_offset", "#{cell_grid_offset_x} #{cell_grid_offset_y}"
                 @drawCell cell_i, cell_j, cell_grid_offset_x, cell_grid_offset_y
                 drawnCellCnt += 1
-        debagel\monitor "drawnCells", drawnCellCnt
         @drawCell 2, 2, 0, 0
         love.graphics.pop!
 
@@ -110,9 +107,6 @@ class View
         -- translate x,y coordinates in the window into cell coordinates
         -- if inGrid : always returns a coordinate in the grid (using modulos)
 
-        -- v backup...
-        -- i = math.floor((x - @offsetX) / @cellSize!) + 1
-        -- j = math.floor((y - @offsetY) / @cellSize!) + 1
         i = math.floor((x - @offsetX) / @cellSize!) + 1
         j = math.floor((y - @offsetY) / @cellSize!) + 1
 
