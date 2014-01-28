@@ -1,2 +1,4 @@
 gen_love/*.lua
 *.sublime-workspace
+*.love
+*.zip

@@ -13,7 +13,7 @@
     [
         {
             "name": "Compile .moon files & Run",
-            "shell_cmd": "moonc -t ../gen_love . && love ../gen_love/",
+            "shell_cmd": "moonc -t ../gen_love . && cd ../gen_love && zip ../gameoflife.love *.lua res/*/* && love ../gameoflife.love",
             "working_dir": "$project_path/src"
         }
     ]
