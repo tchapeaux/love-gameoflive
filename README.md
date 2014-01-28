@@ -3,7 +3,10 @@ LÖVE-gameoflife
 
 An implementation of Conway's Game of Life using LÖVE and MoonScript
 
+More info on Conway's Game of Life http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
 More info on LÖVE: http://love2d.org
+
 More info on MoonScript: http://moonscript.org
 
 Features
