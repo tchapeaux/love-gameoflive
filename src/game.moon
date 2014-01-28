@@ -11,12 +11,12 @@ class Game
 
     draw: =>
         @view\draw!
-        love.graphics.print love.timer.getFPS!, 10, 10
         debagel\draw!
 
     update: (dt) =>
         @grid\update dt
         @view\update dt
+        debagel\monitor("fps", love.timer.getFPS!)
         debagel\update dt
 
     resume_simulation: =>
