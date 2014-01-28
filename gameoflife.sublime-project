@@ -1,0 +1,20 @@
+{
+    "folders":
+    [
+        {
+            "follow_symlinks": true,
+            "path": "./",
+            "name": "root",
+            // "file_exclude_patterns": [""],
+            // "folder_exclude_patterns": [""]
+        }
+    ],
+    "build_systems":
+    [
+        {
+            "name": "Compile .moon files & Run",
+            "shell_cmd": "moonc -t ../gen_love . && love ../gen_love/",
+            "working_dir": "$project_path/src"
+        }
+    ]
+}
