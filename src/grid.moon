@@ -19,9 +19,9 @@ class Grid
         i >= 1 and i <= @size and j >= 1 and j <= @size
 
     checkCoordinates: (i, j) =>
-        if i == nil then "x coordinate is nil"
-        if j == nil then "y coordinate is nil"
-        if not @isInGrid(i, j) then error "Not in grid: #{i}, #{j}"
+        assert i ~= nil and math.floor(i) == i
+        assert j ~= nil and math.floor(j) == j
+        assert @isInGrid(i, j)
 
     isAlive: (i, j) =>
         @checkCoordinates i, j
@@ -77,7 +77,7 @@ class Grid
         neighbors = @neighbors i, j
         for {coordX, coordY} in *neighbors
             @checkCoordinates coordX, coordY
-            cnt += @cells[coordX][coordY]
+            if @isAlive coordX, coordY then cnt += 1
         cnt
 
     actualize: =>
@@ -109,12 +109,18 @@ class Grid
 
 
 export makeDefaultGrid = ->
-    g = Grid 100
     require("patterns")
-    g\placePattern patterns.block, 2, 2
-    g\placePattern patterns.boat, 5, 5
-    g\placePattern patterns.pulsar, 10, 2
-    g\placePattern patterns.lightweight_spaceship, 30, 5
-    g\placePattern patterns.gosperglidergun, 2, 15
+    -- g = Grid 50
+    -- g\placePattern patterns.block, 2, 2
+    -- g\placePattern patterns.boat, 5, 5
+    -- g\placePattern patterns.pulsar, 10, 2
+    -- g\placePattern patterns.lightweight_spaceship, 30, 5
+    -- g\placePattern patterns.gosperglidergun, 2, 15
+
+    g = Grid 20
+    -- g\placePattern patterns.glider , 1, 1
+    g\placePattern patterns.glider , 18, 18
+    g\placePattern patterns.glider , 1, 5
+    g\placePattern patterns.glider , 15, 2
 
     return g
