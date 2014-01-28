@@ -2,9 +2,9 @@ export ^
 
 class Grid
     new: (@size) =>
-        @cells = [ [0 for i = 1, @size] for j = 1, @size]
+        @cells = {}
         @running = false
-        @stepTime = 0.1
+        @stepTime = 0.5
         @stepPerSecond = 1 / @stepTime
         @nextStepTimer = @stepTime
 
@@ -25,23 +25,32 @@ class Grid
 
     isAlive: (i, j) =>
         @checkCoordinates i, j
-        @cells[i][j] == 1
+        @cells[i] and @cells[i][j]
 
     isDead: (i, j) =>
         @checkCoordinates i, j
-        @cells[i][j] == 0
+        (not @cells[i]) or (not @cells[i][j])
 
     toggleLife: (i, j) =>
         @checkCoordinates i, j
-        @cells[i][j] = 1 - @cells[i][j]
+        if @isAlive i, j
+            @set_dead i, j
+        elseif @isDead i, j
+            @set_alive i, j
+        else
+            error("Invalid state for cell #{i} #{j}")
 
     set_dead: (i, j) =>
         @checkCoordinates i, j
-        @cells[i][j] = 0
+        if @cells[i]
+            @cells[i][j] = nil
+        -- TODO: remove @cells[i] if [i][j] was the last cell in i
 
     set_alive: (i, j) =>
         @checkCoordinates i, j
-        @cells[i][j] = 1
+        if not @cells[i]
+            @cells[i] = {}
+        @cells[i][j] = true
 
     up: (j) =>
         @checkCoordinates 1, j
@@ -74,22 +83,33 @@ class Grid
 
     aliveNeighborCnt: (i, j) =>
         cnt = 0
-        neighbors = @neighbors i, j
-        for {coordX, coordY} in *neighbors
+        for {coordX, coordY} in *@neighbors i, j
             @checkCoordinates coordX, coordY
             if @isAlive coordX, coordY then cnt += 1
         cnt
 
+    surviveNextStep: (i, j) =>
+        aliveCnt = @aliveNeighborCnt i, j
+        aliveCnt == 3 or (aliveCnt == 2 and @isAlive i, j)
+
     actualize: =>
     -- advance one step in the simulations, updating @cells
-        newGrid = Grid @size
-        for i=1,@size
-            for j=1,@size
-                aliveCnt = @aliveNeighborCnt i, j
-                -- if @isAlive i, j then print "#{i} #{j} has #{aliveCnt} neigh"
-                if aliveCnt == 3 or (aliveCnt == 2 and @isAlive i, j)
-                    newGrid\set_alive i, j
+        copyGrid = Grid @size
+        -- for each alive cell
+        for i, _ in pairs @cells
+            for j, _ in pairs @cells[i]
+                -- check if it should survive
+                if @surviveNextStep i, j
+                    copyGrid\set_alive i, j
+                -- check if one of its dead neighbors should be awakened
+                for {i2, j2} in *@neighbors(i, j)
+                    if @isDead i2, j2
+                        if copyGrid\isDead(i2, j2) and @surviveNextStep(i2, j2)
+                            copyGrid\set_alive i2, j2
+
+
         @cells = newGrid.cells
+
 
     placePattern: (pattern, i, j) =>
         @checkCoordinates i, j
@@ -110,17 +130,11 @@ class Grid
 
 export makeDefaultGrid = ->
     require("patterns")
-    -- g = Grid 50
-    -- g\placePattern patterns.block, 2, 2
-    -- g\placePattern patterns.boat, 5, 5
-    -- g\placePattern patterns.pulsar, 10, 2
-    -- g\placePattern patterns.lightweight_spaceship, 30, 5
-    -- g\placePattern patterns.gosperglidergun, 2, 15
-
-    g = Grid 20
-    -- g\placePattern patterns.glider , 1, 1
-    g\placePattern patterns.glider , 18, 18
-    g\placePattern patterns.glider , 1, 5
-    g\placePattern patterns.glider , 15, 2
+    g = Grid 100
+    g\placePattern patterns.block, 2, 2
+    g\placePattern patterns.boat, 5, 5
+    g\placePattern patterns.pulsar, 10, 2
+    g\placePattern patterns.lightweight_spaceship, 30, 5
+    g\placePattern patterns.gosperglidergun, 2, 15
 
     return g
