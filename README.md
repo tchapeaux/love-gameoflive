@@ -3,11 +3,20 @@ LÖVE-gameoflife
 
 An implementation of Conway's Game of Life using LÖVE and MoonScript
 
-More info on Conway's Game of Life http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+Installation
+------------
 
-More info on LÖVE: http://love2d.org
+- Windows: https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/windows
+- OSX: https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/osx
+- .love file: https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/love
 
-More info on MoonScript: http://moonscript.org
+Screenshot
+----------
+
+Yes this is unattractive
+
+![screenshot_1](https://github.com/tchapeaux/love-gameoflive/raw/master/screenshots/001.png "Screenshot 1")
+
 
 Features
 --------
@@ -24,6 +33,14 @@ Planned features
 - Saving grids
 - Handling of huge grids
 - Full 'game mode' with incremental levels, hud, and fun design (soon)
+
+More info
+---------
+
+- Conway's Game of Life http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+- LÖVE: http://love2d.org
+- MoonScript http://moonscript.org
+
 
 License
 -------
