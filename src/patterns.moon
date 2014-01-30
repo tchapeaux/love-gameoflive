@@ -11,9 +11,11 @@ class Pattern
         -- http://www.conwaylife.com/wiki/Plaintext
         patt = {}
         for line in love.filesystem.lines filepath
-            if #line == 0 or line\sub(1, 1) == "!"
+            if line\sub(1, 1) == "!"
                 continue
             patt_line = {}
+            -- .cells files may have different line lengths and even
+            -- zero-length lines
             for charIndex = 1,line\len!
                 char = line\sub(charIndex, charIndex)
                 if char == '.'
@@ -116,9 +118,9 @@ export patterns = {
     }
 
     acorn: Pattern "Acorn", {
-        {0, 0, 1, 0, 0, 0, 0, 0}
-        {0, 0, 0, 0, 1, 0, 0, 0}
-        {1, 1, 0, 0, 0, 1, 1, 1}
+        {0, 1, 0, 0, 0, 0, 0}
+        {0, 0, 0, 1, 0, 0, 0}
+        {1, 1, 0, 0, 1, 1, 1}
     }
 
     -- miscellaneous
@@ -128,6 +130,9 @@ export patterns = {
 
     aircraftcarrier: Pattern "Aircraft Carrier",
         Pattern.gridFromCellsFile "res/patterns/aircraftcarrier.cells"
+
+    noahsark: Pattern "Noah's Ark",
+        Pattern.gridFromCellsFile "res/patterns/noahsark.cells"
 
     -- my discoveries
     bomb: Pattern "Bomb", {
