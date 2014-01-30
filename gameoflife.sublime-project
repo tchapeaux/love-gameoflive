@@ -13,8 +13,8 @@
     [
         {
             "name": "Compile .moon files & Run",
-            "shell_cmd": "moonc -t ../gen_love . > /dev/null && cd ../gen_love && zip -q ../gameoflife.love *.lua res/*/* && love ../gameoflife.love",
-            "working_dir": "$project_path/src"
+            "shell_cmd": "cp -r ./res ./gen_love/res && cd ./src && moonc -t ../gen_love . > /dev/null && cd ../gen_love && ../love-release.sh -l -r build -n GameOfLove -u NpGames -v 0.8.0 > /dev/null && cd build/0.8.0 && love GameOfLove.love",
+            "working_dir": "$project_path"
         }
     ]
 }
