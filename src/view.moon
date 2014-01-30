@@ -42,8 +42,6 @@ class View
 
     draw: =>
         @drawBackground!
-        -- TODO: take offsets into account and only draw relevant part
-        -- compute top_left cell
         @drawCells!
         @drawLines!
 
