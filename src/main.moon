@@ -12,17 +12,25 @@ love.load = ->
     menu = Menu!
 
 love.draw = ->
-    -- game\draw!
-    menu\draw!
+    if menu.gameLaunch
+        game\draw!
+    else
+        menu\draw!
     debagel\draw!
 
 love.update = (dt) ->
-    -- game\update dt
-    menu\update dt
+    if menu.gameLaunch
+        game\update dt
+    else
+        menu\update dt
 
 love.keypressed = (k) ->
     if k == 'escape' then love.event.quit!
-    -- game\keyreleased k
+    if menu.gameLaunch
+        game\keyreleased k
 
 love.mousereleased = (x, y, button) ->
-    -- game\mousereleased x, y, button
+    if menu.gameLaunch
+        game\mousereleased x, y, button
+    else
+        menu\mousereleased x, y, button
