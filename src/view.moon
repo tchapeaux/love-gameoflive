@@ -3,7 +3,7 @@ export ^
 helper = require("helper")
 
 class View
-    new: (@grid, @width, @height) =>
+    new: (@grid, @w, @h) =>
         @cellBaseSize = 20
         @offsetX = 0
         @offsetY = 0
@@ -57,8 +57,8 @@ class View
         love.graphics.push!
         love.graphics.translate @offsetX, @offsetY
         top_left_x, top_left_y = @translateCoord 0, 0
-        numCol = @width / @cellSize! + 1
-        numRow = @height / @cellSize! + 1
+        numCol = @w / @cellSize! + 1
+        numRow = @h / @cellSize! + 1
 
         for i = top_left_x, top_left_x + numCol
             for j = top_left_y, top_left_y + numRow
