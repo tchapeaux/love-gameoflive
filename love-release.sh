@@ -279,11 +279,11 @@ fi
 
 ## Zipping ##
 mkdir -p $RELEASE_DIR $CACHE_DIR
-rm -rf $RELEASE_DIR/$PROJECT_NAME.love 2> /dev/null
+# rm -rf $RELEASE_DIR/$PROJECT_NAME.love 2> /dev/null
 if [ -z $PROJECT_FILES ]; then
-  zip -9 -r $RELEASE_DIR/$PROJECT_NAME.love -x $0 $MAIN_RELEASE_DIR/\* @ *
+  zip -9 -u -r $RELEASE_DIR/$PROJECT_NAME.love -x $0 $MAIN_RELEASE_DIR/\* @ *
 else
-  zip -9 -r $RELEASE_DIR/$PROJECT_NAME.love -x $0 $MAIN_RELEASE_DIR/\* @ $PROJECT_FILES
+  zip -9 -u -r $RELEASE_DIR/$PROJECT_NAME.love -x $0 $MAIN_RELEASE_DIR/\* @ $PROJECT_FILES
 fi
 cd $RELEASE_DIR
 
