@@ -60,7 +60,6 @@ class View
         numCol = @width / @cellSize! + 1
         numRow = @height / @cellSize! + 1
 
-        drawnCellCnt = 0
         for i = top_left_x, top_left_x + numCol
             for j = top_left_y, top_left_y + numRow
                 cell_i = helper.modulo_lua(i, @grid.size)
@@ -68,7 +67,6 @@ class View
                 cell_grid_offset_x = math.floor((i - 1) / @grid.size)
                 cell_grid_offset_y = math.floor((j - 1) / @grid.size)
                 @drawCell cell_i, cell_j, cell_grid_offset_x, cell_grid_offset_y
-                drawnCellCnt += 1
         @drawCell 2, 2, 0, 0
         love.graphics.pop!
 

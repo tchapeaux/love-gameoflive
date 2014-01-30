@@ -4,7 +4,7 @@ class Grid
     new: (@size) =>
         @cells = {}
         @running = false
-        @stepTime = 0.5
+        @stepTime = 0.1
         @stepPerSecond = 1 / @stepTime
         @nextStepTimer = @stepTime
 
@@ -131,10 +131,11 @@ class Grid
 export makeDefaultGrid = ->
     require("patterns")
     g = Grid 100
-    g\placePattern patterns.block, 2, 2
-    g\placePattern patterns.boat, 5, 5
-    g\placePattern patterns.pulsar, 10, 2
-    g\placePattern patterns.lightweight_spaceship, 30, 5
-    g\placePattern patterns.gosperglidergun, 2, 15
+    -- g\placePattern patterns.block, 2, 2
+    -- g\placePattern patterns.boat, 5, 5
+    -- g\placePattern patterns.pulsar, 10, 2
+    -- g\placePattern patterns.lightweight_spaceship, 30, 5
+    -- g\placePattern patterns.gosperglidergun, 2, 15
+    g\placePattern patterns.noahsark, 2, 15
 
     return g

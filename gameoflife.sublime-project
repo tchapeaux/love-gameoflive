@@ -4,7 +4,7 @@
         {
             "follow_symlinks": true,
             "path": "./",
-            "name": "root",
+            "name": "GameOfLove",
             // "file_exclude_patterns": [""],
             // "folder_exclude_patterns": [""]
         }
