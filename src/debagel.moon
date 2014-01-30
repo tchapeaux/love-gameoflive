@@ -1,7 +1,8 @@
+export ^
+
 class Debagel
-    new: =>
+    new: (@font) =>
         @vars = {}
-        @on = true
 
     monitor: (name, value=0) =>
         @vars[name] = value
@@ -9,6 +10,7 @@ class Debagel
     update: (dt) =>
 
     draw: =>
+        love.graphics.setFont(@font)
         love.graphics.setColor {0, 0, 0}
         love.graphics.rectangle "fill",
             10, 10,
@@ -19,5 +21,3 @@ class Debagel
             love.graphics.print "#{name}: #{value}",
                 15, 15 + (cnt) * 12
             cnt += 1
-
-export debagel = Debagel!
