@@ -8,6 +8,10 @@ class Grid
         @stepPerSecond = 1 / @stepTime
         @nextStepTimer = @stepTime
 
+    setStepTime: (newTime_s) =>
+        assert newTime_s > 0
+        @stepTime = newTime_s
+
     update: (dt) =>
         if @running
             @nextStepTimer -= dt
