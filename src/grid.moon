@@ -8,9 +8,18 @@ class Grid
         @stepPerSecond = 1 / @stepTime
         @nextStepTimer = @stepTime
 
-    setStepTime: (newTime_s) =>
+    -- public
+    -- no draw function: a Grid is drawn by a View
+
+    set_stepTime: (newTime_s) =>
         assert newTime_s > 0
         @stepTime = newTime_s
+
+    stop_simulation: =>
+        @running = false
+
+    start_simulation: =>
+        @running = true
 
     update: (dt) =>
         if @running
@@ -19,8 +28,35 @@ class Grid
             @actualize!
             @nextStepTimer = @stepTime
 
-    isInGrid: (i, j) =>
-        i >= 1 and i <= @size and j >= 1 and j <= @size
+    actualize: =>
+    -- advance one step in the simulations, updating @cells
+        copyGrid = Grid @size
+        -- for each alive cell
+        for i, _ in pairs @cells
+            for j, _ in pairs @cells[i]
+                -- check if it should survive
+                if @surviveNextStep i, j
+                    copyGrid\set_alive i, j
+                -- check if one of its dead neighbors should be awakened
+                for {i2, j2} in *@neighbors(i, j)
+                    if @is_dead i2, j2
+                        if copyGrid\is_dead(i2, j2) and @surviveNextStep(i2, j2)
+                            copyGrid\set_alive i2, j2
+        @cells = copyGrid.cells
+
+    placePattern: (pattern, i, j) =>
+        @checkCoordinates i, j
+        p_grid = pattern.pattern_grid
+        cur_i, cur_j = i, j
+        for row in *p_grid
+            for lifeStatus in *row
+                if lifeStatus == 1
+                    @set_alive cur_i, cur_j
+                elseif lifeStatus == 0
+                    @set_dead cur_i, cur_j
+                cur_i = @right cur_i
+            cur_j = @down cur_j
+            cur_i = i
 
     checkCoordinates: (i, j) =>
         assert i ~= nil and math.floor(i) == i
@@ -55,6 +91,11 @@ class Grid
         if not @cells[i]
             @cells[i] = {}
         @cells[i][j] = true
+
+    -- private
+
+    isInGrid: (i, j) =>
+        i >= 1 and i <= @size and j >= 1 and j <= @size
 
     up: (j) =>
         @checkCoordinates 1, j
@@ -95,40 +136,6 @@ class Grid
     surviveNextStep: (i, j) =>
         aliveCnt = @aliveNeighborCnt i, j
         aliveCnt == 3 or (aliveCnt == 2 and @is_alive i, j)
-
-    actualize: =>
-    -- advance one step in the simulations, updating @cells
-        copyGrid = Grid @size
-        -- for each alive cell
-        for i, _ in pairs @cells
-            for j, _ in pairs @cells[i]
-                -- check if it should survive
-                if @surviveNextStep i, j
-                    copyGrid\set_alive i, j
-                -- check if one of its dead neighbors should be awakened
-                for {i2, j2} in *@neighbors(i, j)
-                    if @is_dead i2, j2
-                        if copyGrid\is_dead(i2, j2) and @surviveNextStep(i2, j2)
-                            copyGrid\set_alive i2, j2
-
-
-        @cells = copyGrid.cells
-
-
-    placePattern: (pattern, i, j) =>
-        @checkCoordinates i, j
-        p_grid = pattern.pattern_grid
-        cur_i, cur_j = i, j
-        for row in *p_grid
-            for lifeStatus in *row
-                -- print "#{cur_i}, #{cur_j}: #{lifeStatus}"
-                if lifeStatus == 1
-                    @set_alive cur_i, cur_j
-                elseif lifeStatus == 0
-                    @set_dead cur_i, cur_j
-                cur_i = @right cur_i
-            cur_j = @down cur_j
-            cur_i = i
 
 
 

@@ -19,19 +19,13 @@ class Game
         debagel\monitor("fps", love.timer.getFPS!)
         debagel\update dt
 
-    resume_simulation: =>
-        @grid.running = true
-
-    stop_simulation: =>
-        @grid.running = false
-
     keyreleased: (key) =>
         switch key
             when " "
                 if @grid.running
-                    @stop_simulation!
+                    @grid\stop_simulation!
                 else
-                    @resume_simulation!
+                    @grid\start_simulation!
 
 
     mousereleased: (x, y, button) =>
