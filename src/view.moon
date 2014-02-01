@@ -11,9 +11,10 @@ class View
         @scale = 1  -- final cell size will be @cellBaseSize * @scale pixels
         @scaleMax = 10
         @scaleMin = 0.5
-        @aliveColor = {65, 105, 225}
-        @deadColor = {154, 205, 50}
-        @pauseColor = {100, 100, 100}
+        @aliveColor = {178, 34, 34} -- aka 'firebrick'
+        @deadColor = {255, 215, 0} -- aka 'gold 1'
+        @pause_aliveColor = {139, 26, 26} -- aka 'firebrick 4'
+        @pause_deadColor = {70, 130, 80} -- aka 'steelblue'
         @gridColor = {0, 0, 0}
         @gridWidth = 1
 
@@ -50,7 +51,8 @@ class View
     drawBackground: =>
         w = love.graphics.getWidth!
         h = love.graphics.getHeight!
-        love.graphics.setColor if @grid.running then @deadColor else @pauseColor
+        love.graphics.setColor if @grid.running
+            @deadColor else @pause_deadColor
         love.graphics.rectangle "fill", 0, 0, w, h
 
     drawCells: =>
@@ -91,7 +93,8 @@ class View
         cell_x = (i - 1 + grid_offX * @grid.size) * @cellSize!
         cell_y = (j - 1 + grid_offY * @grid.size) * @cellSize!
         if @grid\is_alive i, j
-            love.graphics.setColor(@aliveColor)
+            love.graphics.setColor if @grid\running
+                @aliveColor else @pause_aliveColor
             love.graphics.rectangle "fill",
                 cell_x, cell_y,
                 @cellSize!, @cellSize!
