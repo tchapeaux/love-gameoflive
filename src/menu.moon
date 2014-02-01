@@ -5,7 +5,7 @@ export ^
 
 makeMenuGrid = ->
     require("patterns")
-    g = Grid 100
+    g = Grid 20
     g\set_stepTime 0.5
     g\placePattern patterns.noahsark, 20, 15
     g\start_simulation!
@@ -26,8 +26,12 @@ class Menu
         @h = love.graphics.getHeight!
         @grid = makeMenuGrid!
         @view = View @grid, @w, @h
+        @view\setScale 2
 
-        @font = love.graphics.newFont "res/font/GreatVibes-Regular.otf", 60
+        @fontBig = love.graphics.newFont "res/font/GreatVibes-Regular.otf", 80
+        @fontMed = love.graphics.newFont "res/font/GreatVibes-Regular.otf", 60
+        @fontSma = love.graphics.newFont "res/font/Inconsolata.otf", 20
+        resources.bgm_menu\play!
         @colorUnselected = {0, 0, 0}
         @colorSelected = {10, 100, 10}
         @text = {}
@@ -39,7 +43,7 @@ class Menu
         for i=1,#@text
             table.insert @textBoundBox, {
                 @w/4 - 150,
-                @h/3 + (i-1) * 100 - 150,
+                @h/3 + (i-1) * 100 - 50,
                 350, 100
             }
         @selected = 0
@@ -58,13 +62,18 @@ class Menu
 
     draw: =>
         @view\draw!
-        love.graphics.setFont(@font)
+        love.graphics.setFont(@fontBig)
+        love.graphics.printf "Game of Löve", @w / 2, 10, @w / 2 - 10, "right"
 
+        love.graphics.setFont(@fontMed)
         for i=1,#@text
             bb = @textBoundBox[i]
             x, y, w, h = bb[1], bb[2], bb[3], bb[4]
             love.graphics.setColor if i == @selected then @colorSelected else @colorUnselected
             love.graphics.printf @text[i], x, y, w, "center"
+
+        love.graphics.setFont @fontSma
+        love.graphics.printf "A game by Altom", 3 * @w/4, @h - 30, @w/4, "right"
 
     mousereleased: (x, y) =>
         @itemSelected @selected
@@ -77,6 +86,8 @@ class Menu
             when "Level Selection"
                 return -- TODO
             when "Sandbox Mode"
+                resources.bgm_menu\stop!
+                resources.bgm_sandbox\play!
                 @gameLaunch = true
             when "Quit Game"
                 love.event.quit!

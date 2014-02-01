@@ -2,10 +2,13 @@ io.stdout\setvbuf'no'
 
 export game, menu -- must be global to be shared between love functions
 
+DEBUG = false
+
 love.load = ->
     require("debagel")
     require("game")
     require("menu")
+    require("resources")
     debugFont = love.graphics.newFont("res/font/Inconsolata.otf", 15)
     export debagel = Debagel debugFont
     game = Game!
@@ -16,7 +19,9 @@ love.draw = ->
         game\draw!
     else
         menu\draw!
-    debagel\draw!
+
+    if DEBUG
+        debagel\draw!
 
 love.update = (dt) ->
     if menu.gameLaunch
