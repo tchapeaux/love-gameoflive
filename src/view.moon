@@ -26,6 +26,8 @@ class View
                 @scale += 0.1
             when "down"
                 @scale -= 0.1
+            else
+                @scale = tonumber str
         @scale = math.min(@scale, @scaleMax)
         @scale = math.max(@scale, @scaleMin)
 
