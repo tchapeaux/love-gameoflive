@@ -1,5 +1,6 @@
 require "grid"
 require "view"
+helper = require "helper"
 
 export ^
 
@@ -54,10 +55,10 @@ class Menu
         -- we do not update @view as it is not taking input
         mX, mY = love.mouse.getX!, love.mouse.getY!
         debagel\monitor "mouse", "#{mX} #{mY}"
-        @selected = 0
         for i=1,#@text
             if testBoundingBox(@textBoundBox[i], mX, mY)
-                @selected = i
+                if @selected ~= i
+                    @selected = i
         debagel\monitor "selected", @selected
 
     draw: =>
@@ -78,6 +79,14 @@ class Menu
 
     mousereleased: (x, y) =>
         @itemSelected @selected
+
+    keyreleased: (key) =>
+        print "sup #{key}"
+        switch key
+            when "up"
+                @selected = helper.modulo_lua @selected - 1, #@text
+            when "down"
+                @selected = helper.modulo_lua @selected + 1, #@text
 
     itemSelected: (selected) =>
         command = @text[selected]

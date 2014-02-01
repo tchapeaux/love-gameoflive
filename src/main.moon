@@ -29,10 +29,12 @@ love.update = (dt) ->
     else
         menu\update dt
 
-love.keypressed = (k) ->
+love.keyreleased = (k) ->
     if k == 'escape' then love.event.quit!
     if menu.gameLaunch
         game\keyreleased k
+    else
+        menu\keyreleased k
 
 love.mousereleased = (x, y, button) ->
     if menu.gameLaunch
