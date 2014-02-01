@@ -72,6 +72,7 @@ class Menu
             love.graphics.setColor if i == @selected then @colorSelected else @colorUnselected
             love.graphics.printf @text[i], x, y, w, "center"
 
+        love.graphics.setColor {0, 0, 0}
         love.graphics.setFont @fontSma
         love.graphics.printf "A game by Altom", 3 * @w/4, @h - 30, @w/4, "right"
 
