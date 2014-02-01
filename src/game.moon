@@ -11,7 +11,6 @@ class Game
 
     draw: =>
         @view\draw!
-        debagel\draw!
 
     update: (dt) =>
         @grid\update dt
