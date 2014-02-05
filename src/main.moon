@@ -2,9 +2,11 @@ io.stdout\setvbuf'no'
 
 export game, menu -- must be global to be shared between love functions
 
-DEBUG = false
+DEBUG = true
 
 love.load = ->
+    if DEBUG
+        love.audio.setVolume 0
     require("debagel")
     require("game")
     require("menu")
