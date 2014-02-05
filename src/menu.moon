@@ -69,7 +69,7 @@ class Menu
 
     draw: =>
         @view\draw!
-        love.graphics.setFont(@fontBig)
+        love.graphics.setFont @fontBig
         love.graphics.printf "Game of Löve", @w / 2, 10, @w / 2 - 10, "right"
 
         love.graphics.setFont(@fontMed)
@@ -84,7 +84,7 @@ class Menu
 
         love.graphics.setColor {0, 0, 0}
         love.graphics.setFont @fontSma
-        love.graphics.printf "A game by Altom", 3 * @w/4, @h - 10, @w/4, "right"
+        love.graphics.printf "A game by Altom", 3 * @w/4, @h - 30, @w/4 - 10, "right"
 
     mousereleased: (x, y) =>
         @itemSelected @selected
@@ -97,6 +97,8 @@ class Menu
                 @selected = helper.modulo_lua @selected + 1, #@text
             when "return"
                 @itemSelected @selected
+            when "escape"
+                love.event.quit!
 
     itemSelected: (selected) =>
         command = @text[selected]
