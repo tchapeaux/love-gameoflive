@@ -17,7 +17,9 @@ Source Code:
 Screenshot
 ----------
 
-![screenshot_menu](screenshots/003.png "Menu screen")
+![screenshot_menu](screenshots/menu.png "Menu screen")
+
+![screenshot_ingame](screenshots/sandbox.png "Ingame screen")
 
 
 Features
