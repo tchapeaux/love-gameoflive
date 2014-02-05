@@ -9,7 +9,7 @@ class Grid
         @nextStepTimer = @stepTime
 
     -- public
-    -- no draw function: a Grid is drawn by a View
+    -- (no draw function: a Grid is drawn by a View)
 
     set_stepTime: (newTime_s) =>
         assert newTime_s > 0
