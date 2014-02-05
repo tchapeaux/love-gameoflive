@@ -8,8 +8,7 @@ class Objective
     new: (@pattern, @x, @y) =>
 
 class Level
-    new: (size, @objective) =>
-        @grid = Grid size
+    new: (@grid, @objective) =>
 
     checkObjective: =>
         @grid\checkPattern @objective.pattern, @objective.x, @objective.y
@@ -23,5 +22,7 @@ export makeSandboxLevel = ->
     -- sandbox: impossible objective
     obj_pattern = Pattern "Garden of Even",
         Pattern.gridFromCellsFile "res/patterns/gardenofeven.cells"
+    grid = Grid 100
+    grid\placePattern patterns.boat, 1, 1
     obj = Objective obj_pattern, 1, 1
-    return Level 100, obj
+    return Level grid, obj
