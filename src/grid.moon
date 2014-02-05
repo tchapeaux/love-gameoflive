@@ -58,6 +58,21 @@ class Grid
             cur_j = @down cur_j
             cur_i = i
 
+    checkPattern: (pattern, i, j) =>
+        @checkCoordinates i, j
+        p_grid = pattern.pattern_grid
+        cur_i, cur_j = i, j
+        for row in *p_grid
+            for pattern_status in *row
+                grid_status = @is_alive cur_i, cur_j
+                pattern_status = pattern_status == 1
+                if grid_status ~= pattern_status
+                    return false
+                cur_i = @right cur_i
+            cur_j = @down cur_j
+            cur_i = i
+        return true
+
     checkCoordinates: (i, j) =>
         assert i ~= nil and math.floor(i) == i
         assert j ~= nil and math.floor(j) == j
