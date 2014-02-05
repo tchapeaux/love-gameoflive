@@ -37,9 +37,9 @@ Planned features
 More info
 ---------
 
-- Conway's Game of Life http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
-- LÖVE: http://love2d.org
-- MoonScript http://moonscript.org
+- [Conway's Game of Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+- [LÖVE](http://love2d.org)
+- [MoonScript](http://moonscript.org)
 
 
 License
