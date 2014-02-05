@@ -17,7 +17,7 @@ Source Code:
 Screenshot
 ----------
 
-![screenshot_1](screenshots/002.png "Screenshot 1")
+![screenshot_menu](screenshots/003.png "Menu screen")
 
 
 Features
