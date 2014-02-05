@@ -2,4 +2,4 @@ gen_love/*
 *.sublime-workspace
 *.love
 *.zip
-res/music/Administration105_-_Cellular_Annoyance.mp3
+res_ignore/*
