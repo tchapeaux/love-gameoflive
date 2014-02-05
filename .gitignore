@@ -3,3 +3,4 @@ gen_love/*
 *.love
 *.zip
 res_ignore/*
+love-release.sh
