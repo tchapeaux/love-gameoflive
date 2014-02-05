@@ -1,6 +1,6 @@
 io.stdout\setvbuf'no'
 
-export game, menu -- must be global to be shared between love functions
+export mainWindow, menu, game -- must be global to be shared between love functions
 
 DEBUG = true
 
@@ -13,6 +13,7 @@ love.load = ->
     debugFont = love.graphics.newFont("res/font/Inconsolata.otf", 15)
     export debagel = Debagel debugFont
     menu = Menu!
+    game = nil
     mainWindow = menu
 
 love.draw = ->
@@ -22,18 +23,17 @@ love.draw = ->
         debagel\draw!
 
 love.update = (dt) ->
-    if mainWindow == menu and menu.game ~= nil
-        mainWindow = menu.game
-    mainWindow = menu
+    if mainWindow == menu and menu.goToGame
+        menu.goToGame = false
+        game = menu.game
+        mainWindow = game
+    elseif mainWindow == game and game.goToMenu
+        game.goToMenu = false
+        mainWindow = menu
+    mainWindow\update dt
 
 love.keyreleased = (k) ->
-    if menu.gameLaunch
-        game\keyreleased k
-    else
-        menu\keyreleased k
+    mainWindow\keyreleased k
 
 love.mousereleased = (x, y, button) ->
-    if menu.gameLaunch
-        game\mousereleased x, y, button
-    else
-        menu\mousereleased x, y, button
+    mainWindow\mousereleased x, y, button

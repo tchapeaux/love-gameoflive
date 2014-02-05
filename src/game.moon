@@ -8,6 +8,7 @@ export ^
 class Game
     new: (@level) =>
         @view = View @level.grid, love.graphics.getWidth!, love.graphics.getHeight!
+        @goToMenu = false
 
     draw: =>
         @view\draw!
@@ -28,7 +29,7 @@ class Game
                 else
                     grid\start_simulation!
             when "escape"
-                @gameLaunch = false
+                @goToMenu = true
 
     mousereleased: (x, y, button) =>
         switch button

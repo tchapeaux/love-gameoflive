@@ -19,7 +19,7 @@ class Level
 
     draw: =>
 
-export makeDefaultLevel = ->
+export makeSandboxLevel = ->
     -- sandbox: impossible objective
     obj_pattern = Pattern "Garden of Even",
         Pattern.gridFromCellsFile "res/patterns/gardenofeven.cells"

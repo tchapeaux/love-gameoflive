@@ -26,6 +26,7 @@ class BoundingBox
 class Menu
     new: =>
         @game = nil
+        @goToGame = false
         @w = love.graphics.getWidth!
         @h = love.graphics.getHeight!
         @grid = makeMenuGrid!
@@ -39,7 +40,9 @@ class Menu
         @colorUnselected = {0, 0, 0}
         @colorSelected = {189, 252, 201} -- mint
         @text = {}
-        table.insert @text, "Start  Game"
+        -- table.insert @text, "Resume Game"
+        -- see update
+        table.insert @text, "Start Game"
         table.insert @text, "Level Selection"
         table.insert @text, "Sandbox Mode"
         table.insert @text, "Quit Game"
@@ -52,8 +55,10 @@ class Menu
 
     update: (dt) =>
         @grid\update dt
-        -- @view\update dt
-        -- we do not update @view as it is not taking input
+
+        if @game ~= nil and @text[1] == "Start Game"
+            @text[1] = "Resume Game"
+
         mX, mY = love.mouse.getX!, love.mouse.getY!
         debagel\monitor "mouse", "#{mX} #{mY}"
         for i=1,#@text
@@ -98,11 +103,14 @@ class Menu
         switch command
             when "Start Game"
                 return -- TODO
+            when "Resume Game"
+                @goToGame = true
             when "Level Selection"
                 return -- TODO
             when "Sandbox Mode"
                 resources.bgm_menu\stop!
                 resources.bgm_sandbox\play!
-                @game = Game makeDefaultLevel!
+                @game = Game makeSandboxLevel!
+                @goToGame = true
             when "Quit Game"
                 love.event.quit!
