@@ -1,5 +1,6 @@
 -- most patterns are from:
 -- http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns1
+-- http://www.conwaylife.com/wiki/Main_Page
 
 export ^
 
