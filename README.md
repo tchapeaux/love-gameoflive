@@ -6,9 +6,13 @@ An implementation of Conway's Game of Life using LÖVE and MoonScript
 Installation
 ------------
 
-- Windows: https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/windows
-- OSX: https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/osx
-- .love file: https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/love
+Executables from [StackMachine](https://stackmachine.com/):
+- [Windows](https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/windows)
+- [OSX](https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/osx)
+- [.love file](https://stackmachine.com/games/7f945bc1a8625d6ff6b18d09/download/love)
+
+Source Code:
+- [GitHub](https://github.com/tchapeaux/love-gameoflive)
 
 Screenshot
 ----------
@@ -27,9 +31,7 @@ Features
 Planned features
 ----------------
 
-- Configurable view
 - Saving grids
-- Handling of huge grids
 - Full 'game mode' with incremental levels, hud, and fun design (soon)
 
 More info
