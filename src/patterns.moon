@@ -135,7 +135,7 @@ export patterns = {
     noahsark: Pattern "Noah's Ark",
         Pattern.gridFromCellsFile "res/patterns/noahsark.cells"
 
-    -- my discoveries
+    -- my discoveries (for fun)
     bomb: Pattern "Bomb", {
         {0, 0, 1, 0, 0, 0}
         {0, 0, 0, 1, 0, 0}
