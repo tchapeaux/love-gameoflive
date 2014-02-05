@@ -153,7 +153,6 @@ class Grid
         aliveCnt == 3 or (aliveCnt == 2 and @is_alive i, j)
 
 
-
 export makeDefaultGrid = ->
     require("patterns")
     g = Grid 100
