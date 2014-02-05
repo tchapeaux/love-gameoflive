@@ -1,5 +1,7 @@
 require "grid"
 require "view"
+require "game"
+require "level"
 helper = require "helper"
 
 export ^
@@ -23,7 +25,7 @@ class BoundingBox
 
 class Menu
     new: =>
-        @gameLaunch = false
+        @game = nil
         @w = love.graphics.getWidth!
         @h = love.graphics.getHeight!
         @grid = makeMenuGrid!
@@ -101,6 +103,6 @@ class Menu
             when "Sandbox Mode"
                 resources.bgm_menu\stop!
                 resources.bgm_sandbox\play!
-                @gameLaunch = true
+                @game = Game makeDefaultLevel!
             when "Quit Game"
                 love.event.quit!

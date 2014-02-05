@@ -8,31 +8,25 @@ love.load = ->
     if DEBUG
         love.audio.setVolume 0
     require("debagel")
-    require("game")
     require("menu")
     require("resources")
     debugFont = love.graphics.newFont("res/font/Inconsolata.otf", 15)
     export debagel = Debagel debugFont
-    game = Game!
     menu = Menu!
+    mainWindow = menu
 
 love.draw = ->
-    if menu.gameLaunch
-        game\draw!
-    else
-        menu\draw!
+    mainWindow\draw!
 
     if DEBUG
         debagel\draw!
 
 love.update = (dt) ->
-    if menu.gameLaunch
-        game\update dt
-    else
-        menu\update dt
+    if mainWindow == menu and menu.game ~= nil
+        mainWindow = menu.game
+    mainWindow = menu
 
 love.keyreleased = (k) ->
-    if k == 'escape' then love.event.quit!
     if menu.gameLaunch
         game\keyreleased k
     else

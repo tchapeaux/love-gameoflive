@@ -6,8 +6,7 @@ export ^
 
 
 class Game
-    new: =>
-        @level = makeDefaultLevel!
+    new: (@level) =>
         @view = View @level.grid, love.graphics.getWidth!, love.graphics.getHeight!
 
     draw: =>
@@ -28,6 +27,8 @@ class Game
                     grid\stop_simulation!
                 else
                     grid\start_simulation!
+            when "escape"
+                @gameLaunch = false
 
     mousereleased: (x, y, button) =>
         switch button
