@@ -12,13 +12,14 @@ makeMenuGrid = ->
     g\start_simulation!
     return g
 
-testBoundingBox = (bb, x, y) ->
-    -- return true if x,y is in boundingBox
-    xB, yB, wB, hB = bb[1], bb[2], bb[3], bb[4]
-    xTest = xB <= x and x <= xB + wB
-    yTest = yB <= y and y <= yB + hB
-    return xTest and yTest
+class BoundingBox
+    new: (@x, @y, @w, @h) =>
 
+    test: (x, y) =>
+    -- return true if x,y is in boundingBox
+        xTest = @x <= x and x <= @x + @w
+        yTest = @y <= y and y <= @y + @h
+        return xTest and yTest
 
 class Menu
     new: =>
@@ -34,7 +35,7 @@ class Menu
         @fontSma = love.graphics.newFont "res/font/Inconsolata.otf", 20
         resources.bgm_menu\play!
         @colorUnselected = {0, 0, 0}
-        @colorSelected = {10, 100, 10}
+        @colorSelected = {189, 252, 201} -- mint
         @text = {}
         table.insert @text, "Start  Game"
         table.insert @text, "Level Selection"
@@ -42,11 +43,9 @@ class Menu
         table.insert @text, "Quit Game"
         @textBoundBox = {}
         for i=1,#@text
-            table.insert @textBoundBox, {
-                @w/4 - 150,
+            table.insert @textBoundBox, BoundingBox @w/4 - 150,
                 @h/3 + (i-1) * 100 - 50,
                 350, 100
-            }
         @selected = 0
 
     update: (dt) =>
@@ -56,7 +55,7 @@ class Menu
         mX, mY = love.mouse.getX!, love.mouse.getY!
         debagel\monitor "mouse", "#{mX} #{mY}"
         for i=1,#@text
-            if testBoundingBox(@textBoundBox[i], mX, mY)
+            if @textBoundBox[i]\test mX, mY
                 if @selected ~= i
                     @selected = i
         debagel\monitor "selected", @selected
@@ -69,24 +68,28 @@ class Menu
         love.graphics.setFont(@fontMed)
         for i=1,#@text
             bb = @textBoundBox[i]
-            x, y, w, h = bb[1], bb[2], bb[3], bb[4]
+            x, y, w, h = bb.x, bb.y, bb.w, bb.h
+            if i == @selected
+                love.graphics.setColor {0, 0, 0, 100}
+                love.graphics.rectangle("fill", x, y, w, h)
             love.graphics.setColor if i == @selected then @colorSelected else @colorUnselected
-            love.graphics.printf @text[i], x, y, w, "center"
+            love.graphics.printf @text[i], x, y + 5, w, "center"
 
         love.graphics.setColor {0, 0, 0}
         love.graphics.setFont @fontSma
-        love.graphics.printf "A game by Altom", 3 * @w/4, @h - 30, @w/4, "right"
+        love.graphics.printf "A game by Altom", 3 * @w/4, @h - 10, @w/4, "right"
 
     mousereleased: (x, y) =>
         @itemSelected @selected
 
     keyreleased: (key) =>
-        print "sup #{key}"
         switch key
             when "up"
                 @selected = helper.modulo_lua @selected - 1, #@text
             when "down"
                 @selected = helper.modulo_lua @selected + 1, #@text
+            when "return"
+                @itemSelected @selected
 
     itemSelected: (selected) =>
         command = @text[selected]
