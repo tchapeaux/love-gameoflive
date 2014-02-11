@@ -7,7 +7,7 @@ export ^
 
 class Game
     new: (@level) =>
-        @view = View @level.grid, love.graphics.getWidth!, love.graphics.getHeight!
+        @view = View @level.grid, wScr!, hScr!
         @goToMenu = false
 
     draw: =>

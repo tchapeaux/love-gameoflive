@@ -24,5 +24,6 @@ export makeSandboxLevel = ->
         Pattern.gridFromCellsFile "res/patterns/gardenofeven.cells"
     grid = Grid 100
     grid\placePattern patterns.boat, 1, 1
+    grid\placePattern patterns.acorn, 30, 30
     obj = Objective obj_pattern, 1, 1
     return Level grid, obj

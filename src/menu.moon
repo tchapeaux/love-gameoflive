@@ -27,10 +27,8 @@ class Menu
     new: =>
         @game = nil
         @goToGame = false
-        @w = love.graphics.getWidth!
-        @h = love.graphics.getHeight!
         @grid = makeMenuGrid!
-        @view = View @grid, @w, @h
+        @view = View @grid, wScr!, hScr!
         @view\setScale 2
 
         @fontBig = love.graphics.newFont "res/font/GreatVibes-Regular.otf", 80
@@ -48,8 +46,8 @@ class Menu
         table.insert @text, "Quit Game"
         @textBoundBox = {}
         for i=1,#@text
-            table.insert @textBoundBox, BoundingBox @w/4 - 150,
-                @h/3 + (i-1) * 100 - 50,
+            table.insert @textBoundBox, BoundingBox wScr!/4 - 150,
+                hScr!/3 + (i-1) * 100 - 50,
                 350, 100
         @selected = 0
 
@@ -70,7 +68,8 @@ class Menu
     draw: =>
         @view\draw!
         love.graphics.setFont @fontBig
-        love.graphics.printf "Game of Löve", @w / 2, 10, @w / 2 - 10, "right"
+        love.graphics.printf "Game of Löve",
+            wScr! / 2, 10, wScr! / 2 - 10, "right"
 
         love.graphics.setFont(@fontMed)
         for i=1,#@text
@@ -84,7 +83,8 @@ class Menu
 
         love.graphics.setColor {0, 0, 0}
         love.graphics.setFont @fontSma
-        love.graphics.printf "A game by Altom", 3 * @w/4, @h - 30, @w/4 - 10, "right"
+        love.graphics.printf "A game by Altom",
+            3 * wScr! / 4, hScr! - 30, wScr! / 4 - 10, "right"
 
     mousereleased: (x, y) =>
         @itemSelected @selected

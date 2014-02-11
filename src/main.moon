@@ -2,6 +2,9 @@ io.stdout\setvbuf'no'
 
 export mainWindow, menu, game -- must be global to be shared between love functions
 
+export wScr, hScr
+wScr, hScr = love.window.getWidth, love.window.getHeight
+
 DEBUG = true
 
 love.load = ->
