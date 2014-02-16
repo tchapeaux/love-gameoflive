@@ -14,15 +14,12 @@ Executables from [StackMachine](https://stackmachine.com/):
 Source Code:
 - [GitHub](https://github.com/tchapeaux/love-gameoflive)
 
-The project file for [SublimeText](http://www.sublimetext.com/) has an automatic build command which uses MisterDA's [love-release.sh](https://github.com/MisterDA/love-release), not included in the repository.
-
 Screenshot
 ----------
 
 ![screenshot_menu](screenshots/menu.png "Menu screen")
 
 ![screenshot_ingame](screenshots/sandbox.png "Ingame screen")
-
 
 Features
 --------
