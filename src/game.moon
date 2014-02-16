@@ -38,6 +38,9 @@ class Game
                 if not grid.running
                     i, j = @view\translateCoord x, y, true
                     grid\toggleLife i, j
+
+    mousepressed: (x, y, button) =>
+        switch button
             when "wu"
                 @view\setScale("up")
             when "wd"

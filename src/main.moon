@@ -36,7 +36,13 @@ love.update = (dt) ->
     mainWindow\update dt
 
 love.keyreleased = (k) ->
-    mainWindow\keyreleased k
+    if mainWindow.keyreleased
+        mainWindow\keyreleased k
+
+love.mousepressed = (x, y, button) ->
+    if mainWindow.mousepressed
+        mainWindow\mousepressed x, y, button
 
 love.mousereleased = (x, y, button) ->
-    mainWindow\mousereleased x, y, button
+    if mainWindow.mousereleased
+        mainWindow\mousereleased x, y, button
