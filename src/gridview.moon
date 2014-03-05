@@ -74,17 +74,17 @@ class GridView
 
     drawLines: =>
         love.graphics.setColor @gridColor
-        love.graphics.setLineWidth @gridWidth
+        love.graphics.setLineWidth @gridWidth * @scale
         oX = @offsetX % @cellSize!
         oY = @offsetY % @cellSize!
-        vertCnt = math.ceil love.graphics.getWidth! / @cellSize!
+        vertCnt = math.ceil wScr! / @cellSize!
         for i=1, vertCnt
             lineX = (i - 1) * @cellSize! + oX
-            love.graphics.line lineX, 0, lineX, love.graphics.getHeight!
-        horizCnt = math.ceil love.graphics.getHeight! / @cellSize!
+            love.graphics.line lineX, 0, lineX, hScr!
+        horizCnt = math.ceil hScr! / @cellSize!
         for i=1, horizCnt
             lineY = (i - 1) * @cellSize! + oY
-            love.graphics.line 0, lineY, love.graphics.getWidth!, lineY
+            love.graphics.line 0, lineY, wScr!, lineY
 
     drawCell: (i, j, grid_offX = 0, grid_offY = 0) =>
         -- offset indicate that the cell is seen in 'another' iteration
