@@ -2,6 +2,7 @@ require "grid"
 require "gridview"
 require "game"
 require "level"
+require "state"
 helper = require "helper"
 
 export ^
@@ -23,10 +24,8 @@ class BoundingBox
         yTest = @y <= y and y <= @y + @h
         return xTest and yTest
 
-class Menu
+class Menu extends State
     new: =>
-        @game = nil
-        @goToGame = false
         @grid = makeMenuGrid!
         @view = GridView @grid, wScr!, hScr!
         @view\setScale 2
@@ -38,8 +37,6 @@ class Menu
         @colorUnselected = {0, 0, 0}
         @colorSelected = {189, 252, 201} -- mint
         @text = {}
-        -- table.insert @text, "Resume Game"
-        -- see update
         table.insert @text, "Start Game"
         table.insert @text, "Level Selection"
         table.insert @text, "Sandbox Mode"
@@ -53,9 +50,6 @@ class Menu
 
     update: (dt) =>
         @grid\update dt
-
-        if @game ~= nil and @text[1] == "Start Game"
-            @text[1] = "Resume Game"
 
         mX, mY = love.mouse.getX!, love.mouse.getY!
         debagel\monitor "mouse", "#{mX} #{mY}"
@@ -105,14 +99,11 @@ class Menu
         switch command
             when "Start Game"
                 return -- TODO
-            when "Resume Game"
-                @goToGame = true
             when "Level Selection"
                 return -- TODO
             when "Sandbox Mode"
                 resources.bgm_menu\stop!
                 resources.bgm_sandbox\play!
-                @game = Game makeSandboxLevel!
-                @goToGame = true
+                statestack\push Game makeSandboxLevel!
             when "Quit Game"
                 love.event.quit!

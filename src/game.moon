@@ -1,11 +1,12 @@
 require "grid"
 require "gridview"
 require "level"
+require "state"
 
 export ^
 
 
-class Game
+class Game extends State
     new: (@level) =>
         @view = GridView @level.grid, wScr!, hScr!
         @goToMenu = false
@@ -29,7 +30,7 @@ class Game
                 else
                     grid\start_simulation!
             when "escape"
-                @goToMenu = true
+                statestack\pop!
 
     mousereleased: (x, y, button) =>
         switch button
