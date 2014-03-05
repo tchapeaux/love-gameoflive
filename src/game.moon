@@ -1,5 +1,5 @@
 require "grid"
-require "view"
+require "gridview"
 require "level"
 
 export ^
@@ -7,7 +7,7 @@ export ^
 
 class Game
     new: (@level) =>
-        @view = View @level.grid, wScr!, hScr!
+        @view = GridView @level.grid, wScr!, hScr!
         @goToMenu = false
 
     draw: =>

@@ -1,5 +1,5 @@
 require("grid")
-require("view")
+require("gridview")
 require("patterns")
 
 export ^

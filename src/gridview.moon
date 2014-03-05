@@ -2,7 +2,7 @@ export ^
 
 helper = require("helper")
 
-class View
+class GridView
     new: (@grid, @w, @h) =>
         @cellBaseSize = 20
         @offsetX = 0

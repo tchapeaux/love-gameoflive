@@ -1,5 +1,5 @@
 require "grid"
-require "view"
+require "gridview"
 require "game"
 require "level"
 helper = require "helper"
@@ -28,7 +28,7 @@ class Menu
         @game = nil
         @goToGame = false
         @grid = makeMenuGrid!
-        @view = View @grid, wScr!, hScr!
+        @view = GridView @grid, wScr!, hScr!
         @view\setScale 2
 
         @fontBig = love.graphics.newFont "res/font/GreatVibes-Regular.otf", 80
