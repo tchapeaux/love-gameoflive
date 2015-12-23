@@ -7,3 +7,4 @@ class State
     mousepressed: (x, y, button) =>
     keypressed: (k) =>
     keyreleased: (k) =>
+    wheelmoved: (x, y) =>

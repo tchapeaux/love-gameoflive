@@ -8,7 +8,7 @@ require "menu"
 export statestack = StateStack!
 export debagel = Debagel love.graphics.newFont("res/font/Inconsolata.otf", 15)
 export wScr, hScr
-wScr, hScr = love.window.getWidth, love.window.getHeight
+wScr, hScr = love.graphics.getWidth, love.graphics.getHeight
 export DEBUG = false
 
 love.load = ->
@@ -37,3 +37,7 @@ love.mousepressed = (x, y, button) ->
 love.mousereleased = (x, y, button) ->
     curState = statestack\peek!
     curState\mousereleased x, y, button
+
+love.wheelmoved = (x, y) ->
+    curState = statestack\peek!
+    curState\wheelmoved x, y

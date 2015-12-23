@@ -23,7 +23,7 @@ class Game extends State
 
     keyreleased: (key) =>
         switch key
-            when " "
+            when "space"
                 grid = @level.grid
                 if grid.running
                     grid\stop_simulation!
@@ -34,15 +34,14 @@ class Game extends State
 
     mousereleased: (x, y, button) =>
         switch button
-            when "l"
+            when 1
                 grid = @level.grid
                 if not grid.running
                     i, j = @view\translateCoord x, y, true
                     grid\toggleLife i, j
 
-    mousepressed: (x, y, button) =>
-        switch button
-            when "wu"
-                @view\setScale("up")
-            when "wd"
-                @view\setScale("down")
+    wheelmoved: (x, y) =>
+        if y > 0
+            @view\setScale("up")
+        elseif y < 0
+            @view\setScale("down")

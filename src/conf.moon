@@ -1,6 +1,6 @@
 love.conf = (t) ->
     t.identity = "GameOfLove"
-    t.version = "0.9.0"
+    t.version = "0.10.0"
     t.console = false
 
     t.window.title = "Game of LÖVE"
@@ -12,7 +12,7 @@ love.conf = (t) ->
     t.window.minwidth = 100
     t.window.minheight = 100
     t.window.fullscreen = false
-    t.window.fullscreentype = "normal" -- "normal" or "desktop"
+    t.window.fullscreentype = "exclusive" -- "exclusive" or "desktop"
     t.window.vsync = true
     t.window.fsaa = 4
     t.window.display = 1
