@@ -6,3 +6,15 @@ with {}
         -- 1 2 0 1 2 0 1 2 0  - x % 3
         -- 1 2 3 1 2 3 1 2 3  - modulo_lua(x, 3)
         ((x - 1) % y) + 1
+
+    .str_split = (str, pattern) ->
+        matches = {}
+        index = 1
+        while index <= str\len()
+            char = str\sub(index, index)
+            if char == pattern
+                table.insert matches, str\sub(1, index - 1)
+                str = str\sub(index + 1, -1)
+                index = 1
+            index += 1
+        table.insert matches, str

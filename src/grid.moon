@@ -4,7 +4,7 @@ class Grid
     new: (@size) =>
         @cells = {}
         @running = false
-        @stepTime = 0.1
+        @stepTime = 1
         @stepPerSecond = 1 / @stepTime
         @nextStepTimer = @stepTime
 

@@ -9,7 +9,7 @@ export statestack = StateStack!
 export debagel = Debagel love.graphics.newFont("res/font/Inconsolata.otf", 15)
 export wScr, hScr
 wScr, hScr = love.window.getWidth, love.window.getHeight
-export DEBUG = true
+export DEBUG = false
 
 love.load = ->
     if DEBUG
