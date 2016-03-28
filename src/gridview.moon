@@ -11,15 +11,25 @@ class GridView
         @scale = 1  -- final cell size will be @cellBaseSize * @scale pixels
         @scaleMax = 10
         @scaleMin = 0.5
-        @aliveColor = {178, 34, 34} -- aka 'firebrick'
-        @deadColor = {255, 215, 0} -- aka 'gold 1'
+        @run_aliveColor = {178, 34, 34} -- aka 'firebrick'
+        @run_deadColor = {255, 215, 0} -- aka 'gold 1'
+        @run_gridColor = {218, 165, 32} -- aka 'goldenrod'
         @pause_aliveColor = {139, 26, 26} -- aka 'firebrick 4'
         @pause_deadColor = {70, 130, 80} -- aka 'steelblue'
-        @gridColor = {0, 0, 0}
+        @pause_gridColor = {176,196,222} -- aka 'lightsteelblue'
         @gridWidth = 1
 
     cellSize: =>
         @cellBaseSize * @scale
+
+    aliveColor: =>
+        @run_aliveColor if @grid.running else @pause_aliveColor
+
+    deadColor: =>
+        @run_deadColor if @grid.running else @pause_deadColor
+
+    gridColor: =>
+        @run_gridColor if @grid.running else @pause_gridColor
 
     setScale: (str) =>
         switch str
@@ -51,8 +61,7 @@ class GridView
     drawBackground: =>
         w = love.graphics.getWidth!
         h = love.graphics.getHeight!
-        love.graphics.setColor if @grid.running
-            @deadColor else @pause_deadColor
+        love.graphics.setColor @deadColor()
         love.graphics.rectangle "fill", 0, 0, w, h
 
     drawCells: =>
@@ -73,7 +82,7 @@ class GridView
         love.graphics.pop!
 
     drawLines: =>
-        love.graphics.setColor @gridColor
+        love.graphics.setColor @gridColor()
         love.graphics.setLineWidth @gridWidth * @scale
         oX = @offsetX % @cellSize!
         oY = @offsetY % @cellSize!
@@ -93,8 +102,7 @@ class GridView
         cell_x = (i - 1 + grid_offX * @grid.size) * @cellSize!
         cell_y = (j - 1 + grid_offY * @grid.size) * @cellSize!
         if @grid\is_alive i, j
-            love.graphics.setColor if @grid\running
-                @aliveColor else @pause_aliveColor
+            love.graphics.setColor @aliveColor()
             love.graphics.rectangle "fill",
                 cell_x, cell_y,
                 @cellSize!, @cellSize!
